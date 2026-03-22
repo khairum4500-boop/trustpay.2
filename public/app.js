@@ -1,47 +1,74 @@
 function showRegister(){
- loginBox.classList.add("hidden");
- registerBox.classList.remove("hidden");
+ document.getElementById("loginBox").classList.add("hidden");
+ document.getElementById("registerBox").classList.remove("hidden");
 }
 
 function showLogin(){
- registerBox.classList.add("hidden");
- loginBox.classList.remove("hidden");
+ document.getElementById("registerBox").classList.add("hidden");
+ document.getElementById("loginBox").classList.remove("hidden");
 }
 
 // LOGIN
 function login(){
+
+ const username = document.getElementById("user").value;
+ const password = document.getElementById("pass").value;
+
+ if(!username || !password){
+  alert("সব ঘর পূরণ করুন");
+  return;
+ }
+
  fetch('/api/login',{
   method:'POST',
   headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({
-    username:user.value,
-    password:pass.value
-  })
- }).then(r=>r.json()).then(d=>{
-  if(d.success){
-    localStorage.setItem("user",JSON.stringify(d.user));
-    window.location.href="dashboard.html";
-  }else{
-    alert("❌ Login Failed");
-  }
+  body:JSON.stringify({username,password})
+ })
+ .then(res => res.json())
+ .then(data => {
+
+   console.log(data); // DEBUG
+
+   if(data.success){
+     localStorage.setItem("user", JSON.stringify(data.user));
+     window.location.href = "dashboard.html";
+   }else{
+     alert("❌ ভুল নাম্বার বা পাসওয়ার্ড");
+   }
+
+ })
+ .catch(err=>{
+   alert("Server error");
+   console.log(err);
  });
 }
 
 // REGISTER
 function register(){
+
+ const username = document.getElementById("ruser").value;
+ const password = document.getElementById("rpass").value;
+
+ if(!username || !password){
+  alert("সব ঘর পূরণ করুন");
+  return;
+ }
+
  fetch('/api/register',{
   method:'POST',
   headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({
-    username:ruser.value,
-    password:rpass.value
-  })
- }).then(r=>r.json()).then(d=>{
-  if(d.success){
-    alert("✅ Registered");
-    showLogin();
-  }else{
-    alert("❌ Already exists");
-  }
+  body:JSON.stringify({username,password})
+ })
+ .then(res => res.json())
+ .then(data=>{
+   if(data.success){
+     alert("✅ রেজিস্টার সফল");
+     showLogin();
+   }else{
+     alert("❌ আগে থেকেই আছে");
+   }
+ })
+ .catch(err=>{
+   alert("Server error");
  });
 }
