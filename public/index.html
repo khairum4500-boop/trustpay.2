@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TrustPay</title>
+<meta charset="UTF-8">
+<title>TrustPay Pro</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Login</h2>
-<input id="user" placeholder="Username">
-<input id="pass" placeholder="Password">
-<button onclick="login()">Login</button>
+<div id="auth">
+  <div class="card">
+    <h1>TrustPay</h1>
+    <input id="user" placeholder="Phone">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
 
-<h2>Register</h2>
-<input id="ruser" placeholder="Username">
-<input id="rpass" placeholder="Password">
-<input id="ref" placeholder="Referral ID">
-<button onclick="register()">Register</button>
+    <button onclick="register()">Register</button>
+    <a href="https://t.me/Helpline_py">Support</a>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <div class="topbar">
+    <h2>Dashboard</h2>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <h3 id="balance"></h3>
+
+  <div id="menu"></div>
+  <div id="content"></div>
+</div>
 
 <script src="app.js"></script>
 </body>
