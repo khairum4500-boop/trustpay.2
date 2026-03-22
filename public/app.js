@@ -1,11 +1,11 @@
 function showRegister(){
- document.getElementById("loginBox").classList.add("hidden");
- document.getElementById("registerBox").classList.remove("hidden");
+ loginBox.classList.add("hidden");
+ registerBox.classList.remove("hidden");
 }
 
 function showLogin(){
- document.getElementById("registerBox").classList.add("hidden");
- document.getElementById("loginBox").classList.remove("hidden");
+ registerBox.classList.add("hidden");
+ loginBox.classList.remove("hidden");
 }
 
 // LOGIN
@@ -19,8 +19,8 @@ function login(){
   })
  }).then(r=>r.json()).then(d=>{
   if(d.success){
-    alert("✅ Login Success");
-    location.reload();
+    localStorage.setItem("user",JSON.stringify(d.user));
+    window.location.href="dashboard.html";
   }else{
     alert("❌ Login Failed");
   }
@@ -34,8 +34,7 @@ function register(){
   headers:{'Content-Type':'application/json'},
   body:JSON.stringify({
     username:ruser.value,
-    password:rpass.value,
-    ref:ref.value
+    password:rpass.value
   })
  }).then(r=>r.json()).then(d=>{
   if(d.success){
