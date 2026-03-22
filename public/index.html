@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>TrustPay Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustPay</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="auth">
-  <div class="card">
-    <h1>TrustPay</h1>
-    <input id="user" placeholder="Phone">
-    <input id="pass" type="password" placeholder="Password">
-    <button onclick="login()">Login</button>
+<div class="container">
 
-    <button onclick="register()">Register</button>
-    <a href="https://t.me/Helpline_py">Support</a>
-  </div>
-</div>
-
-<div id="app" class="hidden">
-  <div class="topbar">
-    <h2>Dashboard</h2>
-    <button onclick="logout()">Logout</button>
+  <div class="logo">
+    <h1><span>TRUST</span><b>PAY</b></h1>
+    <p>THE FUTURE OF INVESTMENT</p>
   </div>
 
-  <h3 id="balance"></h3>
+  <!-- LOGIN -->
+  <div id="loginBox" class="card">
+    <h2>লগইন করুন</h2>
 
-  <div id="menu"></div>
-  <div id="content"></div>
+    <input id="user" placeholder="📱 মোবাইল নম্বর">
+    <input id="pass" type="password" placeholder="🔒 পাসওয়ার্ড">
+
+    <button onclick="login()">প্রবেশ করুন</button>
+
+    <p>নতুন অ্যাকাউন্ট? 
+      <span onclick="showRegister()">নিবন্ধন</span>
+    </p>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="registerBox" class="card hidden">
+    <h2>নতুন নিবন্ধন</h2>
+
+    <input id="ruser" placeholder="📱 মোবাইল নম্বর">
+    <input id="rpass" type="password" placeholder="🔒 পাসওয়ার্ড">
+    <input id="ref" placeholder="🎁 রেফার (optional)">
+
+    <button onclick="register()">নিবন্ধন সম্পন্ন করুন</button>
+
+    <p onclick="showLogin()">আগে থেকে অ্যাকাউন্ট আছে? লগইন</p>
+  </div>
+
 </div>
 
 <script src="app.js"></script>
