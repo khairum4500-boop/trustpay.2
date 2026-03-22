@@ -11,9 +11,10 @@ function login(){
  }).then(r=>r.json()).then(d=>{
   if(d.success){
     user=d.user;
-    if(user.is_admin) loadAdmin();
-    else loadDashboard();
-  }
+    auth.style.display="none";
+    app.style.display="block";
+    load();
+  }else alert("Login Failed");
  });
 }
 
@@ -22,34 +23,48 @@ function register(){
   method:'POST',
   headers:{'Content-Type':'application/json'},
   body:JSON.stringify({
-    username:ruser.value,
-    password:rpass.value,
-    ref:ref.value
+    username:user.value,
+    password:pass.value
   })
  }).then(()=>alert("Registered"));
 }
 
-// USER DASHBOARD
-function loadDashboard(){
- document.body.innerHTML=`
- <h2>User Dashboard</h2>
- <h3>Balance: ${user.balance}</h3>
- <button onclick="deposit()">Deposit</button>
- <button onclick="withdraw()">Withdraw</button>
- `;
+function load(){
+ balance.innerText="Balance: "+user.balance;
+
+ if(user.is_admin){
+   menu.innerHTML=`
+   <button onclick="admin()">Admin Panel</button>
+   <button onclick="income()">Give Income</button>
+   `;
+ }else{
+   menu.innerHTML=`
+   <button onclick="plans()">Invest</button>
+   <button onclick="deposit()">Deposit</button>
+   <button onclick="withdraw()">Withdraw</button>
+   `;
+ }
 }
 
-// ADMIN PANEL
-function loadAdmin(){
- fetch('/api/users')
+function plans(){
+ fetch('/api/plans')
  .then(r=>r.json())
- .then(users=>{
-  let html="<h2>Admin Panel</h2>";
-  users.forEach(u=>{
-    html+=`<p>${u.username} - ${u.balance}</p>`;
+ .then(p=>{
+  let html="";
+  p.forEach(pl=>{
+    html+=`<div>${pl.name} - ${pl.price}
+    <button onclick="buy(${pl.id})">Buy</button></div>`;
   });
-  document.body.innerHTML=html;
+  content.innerHTML=html;
  });
+}
+
+function buy(id){
+ fetch('/api/invest',{
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({userId:user.id,planId:id})
+ }).then(()=>alert("Invested"));
 }
 
 function deposit(){
@@ -59,7 +74,7 @@ function deposit(){
   method:'POST',
   headers:{'Content-Type':'application/json'},
   body:JSON.stringify({userId:user.id,amount:a,number:n})
- });
+ }).then(()=>alert("Request Sent"));
 }
 
 function withdraw(){
@@ -69,5 +84,36 @@ function withdraw(){
   method:'POST',
   headers:{'Content-Type':'application/json'},
   body:JSON.stringify({userId:user.id,amount:a,number:n})
+ }).then(()=>alert("Withdraw Sent"));
+}
+
+function admin(){
+ fetch('/api/requests')
+ .then(r=>r.json())
+ .then(d=>{
+  let html="";
+  d.forEach(r=>{
+    html+=`${r.type} ${r.amount}
+    <button onclick="handle(${r.id},'approve')">✔</button>
+    <button onclick="handle(${r.id},'reject')">❌</button><br>`;
+  });
+  content.innerHTML=html;
  });
+}
+
+function handle(id,action){
+ fetch('/api/handle',{
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({id,action})
+ }).then(()=>admin());
+}
+
+function income(){
+ fetch('/api/give-income',{method:'POST'})
+ .then(()=>alert("Income Added"));
+}
+
+function logout(){
+ location.reload();
 }
