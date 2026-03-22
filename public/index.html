@@ -4,43 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TrustPay</title>
-
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-  <div class="logo">
-    <h1><span>TRUST</span><b>PAY</b></h1>
-    <p>THE FUTURE OF INVESTMENT</p>
-  </div>
+  <h1 class="logo">TRUST<span>PAY</span></h1>
 
   <!-- LOGIN -->
   <div id="loginBox" class="card">
-    <h2>লগইন করুন</h2>
-
-    <input id="user" placeholder="📱 মোবাইল নম্বর">
-    <input id="pass" type="password" placeholder="🔒 পাসওয়ার্ড">
-
-    <button onclick="login()">প্রবেশ করুন</button>
-
-    <p>নতুন অ্যাকাউন্ট? 
-      <span onclick="showRegister()">নিবন্ধন</span>
-    </p>
+    <input id="user" placeholder="মোবাইল নম্বর">
+    <input id="pass" type="password" placeholder="পাসওয়ার্ড">
+    <button onclick="login()">লগইন</button>
+    <p onclick="showRegister()">নিবন্ধন করুন</p>
   </div>
 
   <!-- REGISTER -->
   <div id="registerBox" class="card hidden">
-    <h2>নতুন নিবন্ধন</h2>
-
-    <input id="ruser" placeholder="📱 মোবাইল নম্বর">
-    <input id="rpass" type="password" placeholder="🔒 পাসওয়ার্ড">
-    <input id="ref" placeholder="🎁 রেফার (optional)">
-
-    <button onclick="register()">নিবন্ধন সম্পন্ন করুন</button>
-
-    <p onclick="showLogin()">আগে থেকে অ্যাকাউন্ট আছে? লগইন</p>
+    <input id="ruser" placeholder="মোবাইল নম্বর">
+    <input id="rpass" type="password" placeholder="পাসওয়ার্ড">
+    <button onclick="register()">রেজিস্টার</button>
+    <p onclick="showLogin()">লগইন করুন</p>
   </div>
 
 </div>
