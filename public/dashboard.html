@@ -1,34 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-<title>Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustPay Dashboard</title>
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+body{
+  background:#020617;
+  color:white;
+  font-family:sans-serif;
+}
+
+.container{
+  padding:20px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.card{
+  background:#0f172a;
+  padding:20px;
+  margin-top:20px;
+  border-radius:15px;
+  text-align:center;
+}
+
+.balance{
+  font-size:28px;
+  color:gold;
+}
+
+.btn{
+  margin-top:15px;
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  font-weight:bold;
+}
+
+.logout{
+  background:red;
+  color:white;
+}
+</style>
+
 </head>
 <body>
 
 <div class="container">
 
-<h2>Dashboard</h2>
+  <!-- TOP -->
+  <div class="top">
+    <h2>👑 TrustPay</h2>
+    <button class="btn logout" onclick="logout()">Logout</button>
+  </div>
 
-<p id="bal"></p>
+  <!-- USER INFO -->
+  <div class="card">
+    <h3 id="username"></h3>
+    <p class="balance" id="balance"></p>
+  </div>
 
-<button onclick="logout()">Logout</button>
+  <!-- ACTION -->
+  <div class="card">
+    <h3>⚡ Quick Actions</h3>
+    <button class="btn">💰 Deposit</button>
+    <button class="btn">📤 Withdraw</button>
+    <button class="btn">👥 Referral</button>
+  </div>
 
 </div>
 
 <script>
+
+// USER CHECK
 let user = JSON.parse(localStorage.getItem("user"));
 
 if(!user){
-  window.location.href="/";
+  window.location.href = "/";
 }
 
-document.getElementById("bal").innerText = "Balance: " + user.balance + " ৳";
+// SHOW DATA
+document.getElementById("username").innerText = "User: " + user.username;
+document.getElementById("balance").innerText = user.balance + " ৳";
 
+// LOGOUT
 function logout(){
- localStorage.removeItem("user");
- window.location.href="/";
+  localStorage.removeItem("user");
+  window.location.href = "/";
 }
+
 </script>
 
 </body>
